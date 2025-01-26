@@ -13,8 +13,6 @@ This script was created to solve the challenge of connecting a Huawei SUN2000 in
 
 If you’re looking for a reliable way to bridge your home network to the Huawei inverter network for monitoring and data logging in Home Assistant, this script provides a simple and effective solution.
 
----
-
 ## Features
 
 • Optimized for Huawei SUN2000 PV inverters.
@@ -23,16 +21,12 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
 • Persistent configurations stored in /etc/dhcpcd.conf and /etc/iptables/rules.v4.
 • Connection tests for quality assurance.
 
----
-
 ## Requirements
 
 - Raspberry Pi running a Debian-based OS (e.g., Raspberry Pi OS).
 - Huawei SUN2000 inverter with Wi-Fi or Ethernet communication.
 - Installed tools: `iptables`, `dhcpcd`, `wpa_supplicant` (automatically installed if missing).
 - Root privileges for network configuration.
-
----
 
 ## Installation and Usage
 
@@ -44,7 +38,7 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
 2.	Run the script:
    sudo ./raspberry_pi_huawei_sun_bridge.sh
 
-3.	Follow the prompts:
+4.	Follow the prompts:
 	•	Select the interface for your home network (e.g., eth0).
 	•	Select the interface for the inverter network (e.g., wlan1).
 	•	Confirm or adjust the automatically detected IP and gateway settings.
@@ -54,7 +48,7 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
 
 ----
 
-Example Configuration
+## Example Configuration
 
 Assumptions:
 	•	Home network: (e.g.) eth0
@@ -69,7 +63,7 @@ Port Forwarding:
 
 ----
 
-Troubleshooting
+## Troubleshooting
 
 1.	No internet connection:
 	•	Verify the home network gateway configuration (e.g. 192.168.1.1).
