@@ -5,17 +5,23 @@ A script to configure a Raspberry Pi as a network bridge for Huawei SUN2000 PV i
 
 ## Overview
 
-This script configures a Raspberry Pi as a network bridge between your home network and **Huawei SUN2000 PV inverters**. It includes NAT, static IP setup, and port forwarding to ensure seamless communication with your solar inverter.
+This script configures a Raspberry Pi as a network bridge to enable communication between a home network and a **Huawei SUN2000 inverter**. It was specifically developed to facilitate the use of the [Home Assistant Huawei Solar Integration](https://github.com/wlcrs/huawei_solar), allowing the inverter to be accessed via its IP address through a network bridge.
+
+## Use Case
+
+This script was created to solve the challenge of connecting a **Huawei SUN2000 inverter** to a home network using a Raspberry Pi as a bridge. The main goal was to enable the use of the [Huawei Solar Integration for Home Assistant](https://github.com/wlcrs/huawei_solar), which requires network access to the inverter's IP address.
+
+If you're looking for a reliable way to bridge your home network to the Huawei inverter network for monitoring and data logging in Home Assistant, this script provides a simple and effective solution.
 
 ---
 
 ## Features
 
-- **Optimized for Huawei SUN2000 PV inverters**.
-- **Automatic detection of network interfaces** with interactive configuration.
-- **Setup of NAT and port forwarding** for specific inverter communication ports.
-- **Persistent configurations** stored in `/etc/dhcpcd.conf` and `/etc/iptables/rules.v4`.
-- **Connection tests** for quality assurance.
+	•	Optimized for Huawei SUN2000 PV inverters.
+	•	Automatic detection of network interfaces with interactive configuration.
+	•	Setup of NAT and port forwarding for specific inverter communication ports.
+	•	Persistent configurations stored in /etc/dhcpcd.conf and /etc/iptables/rules.v4.
+	•	Connection tests for quality assurance.
 
 ---
 
