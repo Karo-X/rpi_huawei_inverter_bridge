@@ -38,7 +38,7 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
 
 1. **Download the script**:
    ```bash
-   wget https://github.com/Karo-X/rpi_huawei_sun_bridge/raspberry_pi_huawei_sun_bridge.sh
+   wget https://github.com/Karo-X/rpi_huawei_inverter_bridge/raspberry_pi_huawei_sun_bridge.sh
    chmod +x raspberry_pi_huawei_sun_bridge.sh
 
 2.	Run the script:
