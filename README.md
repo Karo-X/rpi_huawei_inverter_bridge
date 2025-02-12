@@ -40,7 +40,7 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
    chmod +x raspberry_pi_huawei_sun_bridge.sh
 
 2.	Run the script:
-   sudo ./raspberry_pi_huawei_sun_bridge.sh
+   `sudo ./raspberry_pi_huawei_sun_bridge.sh`
 
 4.	Follow the prompts:
 	•	Select the interface for your home network (e.g., eth0 or wlan0)
@@ -51,11 +51,10 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
 
 Test the connection
 	•	At the end, the script automatically performs connection tests, including:
- 		ping -c 4 192.168.200.1
+ 		```bash
+   		ping -c 4 192.168.200.1
 		ping -c 4 192.168.1.1
 		ping -c 4 8.8.8.8
-
-
 
 ----
 
@@ -71,7 +70,7 @@ Assumptions:
 
 Port Forwarding:
 	•	Port 6607 is forwarded from the home network (eth0) to the Huawei inverter (wlan1).
- 		sudo firewall-cmd --list-forward-ports
+ 		`sudo firewall-cmd --list-forward-ports`
 
 ----
 
@@ -80,14 +79,14 @@ Port Forwarding:
 1.	No internet connection:
 	•	Verify the home network gateway configuration (e.g. 192.168.1.1).
 	•	Check the routing table: ip route
-		Restart the firewall service if needed: sudo systemctl restart firewalld
+		Restart the firewall service if needed: `sudo systemctl restart firewalld`
 
 3.	Inverter not reachable:
 	•	Ensure the inverter SSID is visible: nmcli device wifi list | grep SUN2000
-  	•	Restart the NetworkManager: sudo systemctl restart NetworkManager
+  	•	Restart the NetworkManager: `sudo systemctl restart NetworkManager`
 
 5.	Ping tests fail:
-	•	Check NetworkManager connections: nmcli device status
+	•	Check NetworkManager connections: `nmcli device status`
 
 ----
 
