@@ -1,32 +1,36 @@
 # rpi_huawei_inverter_bridge
-A script to configure a Raspberry Pi as a network bridge for Huawei SUN2000 PV inverters, including NAT, static IPs, and port forwarding.
+A script to configure a Raspberry Pi as a network bridge for Huawei SUN2000 PV inverters, enabling NAT, static IPs, and port forwarding.
 
 # Raspberry Pi Huawei SUN2000 Network Bridge
 
 ## Overview
 
-This script configures a Raspberry Pi as a network bridge to enable communication between a home network and a **Huawei SUN2000 inverter**. It was specifically developed to facilitate the use of the [Home Assistant Huawei Solar Integration](https://github.com/wlcrs/huawei_solar), allowing the inverter to be accessed via its IP address through a network bridge.
+This script configures a Raspberry Pi as a network bridge to enable communication between a home network and a Huawei SUN2000 inverter. It was specifically developed to facilitate the use of the Home Assistant Huawei Solar Integration, allowing the inverter to be accessed via its IP address through a network bridge.
 
 ## Use Case
 
-This script was created to solve the challenge of connecting a Huawei SUN2000 inverter to a home network using a Raspberry Pi as a bridge. The main goal was to enable the use of the [Home Assistant Huawei Solar Integration](https://github.com/wlcrs/huawei_solar) for Home Assistant, which requires network access to the inverter’s IP address.
+This script helps connect a Huawei SUN2000 inverter to a home network using a Raspberry Pi as a network bridge. The goal is to allow Home Assistant Huawei Solar Integration to communicate with the inverter via its IP address.
 
 If you’re looking for a reliable way to bridge your home network to the Huawei inverter network for monitoring and data logging in Home Assistant, this script provides a simple and effective solution.
 
 ## Features
 
-• Optimized for Huawei SUN2000 PV inverters.
-• Automatic detection of network interfaces with interactive configuration.
-• Setup of NAT and port forwarding for specific inverter communication ports.
-• Persistent configurations stored in /etc/dhcpcd.conf and /etc/iptables/rules.v4.
-• Connection tests for quality assurance.
+✔ Optimized for Huawei SUN2000 PV inverters
+✔ Automatic detection of available network interfaces with interactive configuration
+✔ Automatic detection of Huawei SUN2000 SSID and user confirmation
+✔ Automatic detection of home network gateway with user confirmation
+✔ User-configurable DNS settings
+✔ Setup of NAT and port forwarding for specific inverter communication ports
+✔ Network configurations managed via NetworkManager (nmcli) and firewall rules via firewalld
+✔ Persistent configurations with automatic reconnection
+✔ Connection tests for quality assurance
 
 ## Requirements
 
-- Raspberry Pi running a Debian-based OS (e.g., Raspberry Pi OS).
-- Huawei SUN2000 inverter with Wi-Fi or Ethernet communication.
-- Installed tools: `iptables`, `dhcpcd`, `wpa_supplicant` (automatically installed if missing).
-- Root privileges for network configuration.
+•	Raspberry Pi running a Debian-based OS (e.g., Raspberry Pi OS)
+•	Huawei SUN2000 inverter with Wi-Fi or Ethernet communication
+•	Installed tools: NetworkManager, firewalld, nmcli (automatically installed if missing)
+•	Root privileges for network configuration
 
 ## Installation and Usage
 
@@ -39,12 +43,19 @@ If you’re looking for a reliable way to bridge your home network to the Huawei
    sudo ./raspberry_pi_huawei_sun_bridge.sh
 
 4.	Follow the prompts:
-	•	Select the interface for your home network (e.g., eth0).
-	•	Select the interface for the inverter network (e.g., wlan1).
-	•	Confirm or adjust the automatically detected IP and gateway settings.
+	•	Select the interface for your home network (e.g., eth0 or wlan0)
+	•	Select the interface for the inverter network (e.g., wlan1)
+	•	Automatically detects available SSIDs and asks if the detected SUN2000 SSID should be used
+	•	Automatically detects the home gateway and allows the user to confirm or modify it
+	•	Allows user-defined DNS servers
 
-5.	Test the connection:
-	•	At the end, the script will run ping tests to ensure connectivity.
+Test the connection
+	•	At the end, the script automatically performs connection tests, including:
+ 		ping -c 4 192.168.200.1
+		ping -c 4 192.168.1.1
+		ping -c 4 8.8.8.8
+
+
 
 ----
 
@@ -60,6 +71,7 @@ Assumptions:
 
 Port Forwarding:
 	•	Port 6607 is forwarded from the home network (eth0) to the Huawei inverter (wlan1).
+ 		sudo firewall-cmd --list-forward-ports
 
 ----
 
@@ -68,12 +80,14 @@ Port Forwarding:
 1.	No internet connection:
 	•	Verify the home network gateway configuration (e.g. 192.168.1.1).
 	•	Check the routing table: ip route
+		Restart the firewall service if needed: sudo systemctl restart firewalld
 
-2.	Inverter not reachable:
-	•	Ensure the inverter SSID is visible: sudo iwlist wlan1 scan
+3.	Inverter not reachable:
+	•	Ensure the inverter SSID is visible: nmcli device wifi list | grep SUN2000
+  	•	Restart the NetworkManager: sudo systemctl restart NetworkManager
 
-3.	Ping tests fail:
-	•	Verify the iptables rules: sudo iptables -t nat -L -n -v
+5.	Ping tests fail:
+	•	Check NetworkManager connections: nmcli device status
 
 ----
 
